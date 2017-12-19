@@ -10,7 +10,7 @@ languages = [
     },
     {
         'name': 'Ruby'
-    }
+    },
 ]
 
 @app.route('/', methods=['GET'])
@@ -25,6 +25,12 @@ def returnall():
 def returnOne(name):
     langs = [language for language in languages if language['name'] == name]
     return jsonify({'language': langs})
+
+@app.route('/lang', methods=['POST'])
+def addOne():
+    language = {'name' : request.json['name']}
+    languages.append(language)
+    return jsonify({'languages' : languages})
 
 if __name__ == '__main__':
     app.run(debug=True, port=8080) # run app inport 8080 in debug mode
